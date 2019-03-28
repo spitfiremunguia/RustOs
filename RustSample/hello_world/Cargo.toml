@@ -5,4 +5,5 @@ authors = ["SpitfireMunguia <davidmunguiaamericas@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+colored = "1.7"
 

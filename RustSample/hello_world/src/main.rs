@@ -4,6 +4,8 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::fs::OpenOptions;
 use std::io::Write;
+extern crate colored;
+use colored::*;
  
 struct Philosopher {
     name: String,
@@ -24,24 +26,27 @@ impl Philosopher {
         let _left = table.forks[self.left].lock().unwrap();
         let _right = table.forks[self.right].lock().unwrap();
     
-        println!("{} is eating", self.name);
+        println!("{} is eating", self.name.cyan());
         thread::sleep_ms(3000);
         //do something with the files,like write on them or something
         let mut leftVectorContent=_left.content.lines().collect::<Vec<&str>>();
         let mut rightVectorContent=_right.content.lines().collect::<Vec<&str>>();
         //delete left fork register file
-        println!("{}",leftVectorContent[0]);
+        println!("{}",leftVectorContent[0].green());
         leftVectorContent.remove(0);
         let LeftStrings:Vec<String>= leftVectorContent.iter().map(|x| x.to_string()).collect();
         let mut leftFile=OpenOptions::new().write(true).open(&_left.path).unwrap();
         writeln!(leftFile, "{}", LeftStrings.join("\n")).unwrap();
         //delete right for register file
-        println!("{}",rightVectorContent[0]);
+        println!("{}",rightVectorContent[0].yellow());
         rightVectorContent.remove(0);
         let RightStrings:Vec<String>= rightVectorContent.iter().map(|x| x.to_string()).collect();
         let mut rightFile=OpenOptions::new().write(true).open(&_right.path).unwrap();
         writeln!(rightFile, "{}", RightStrings.join("\n")).unwrap();
-        println!("{} is done eating", self.name);
+
+        
+        println!("{} is done eating", self.name.magenta());
+        println!();
  
     }
 }

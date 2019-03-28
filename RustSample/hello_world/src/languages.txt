@@ -1,8 +1,3 @@
-ballena
-bisonte
-búfalo
-burro
-caballo
 camello
 canario
 cangrejo
@@ -12,4 +7,13 @@ cebra
 perro
 aracol
 cebra
+perro
+a
+perro
+a
+perro
+a
+perro
+perro
+o
 perro
