@@ -1,7 +1,3 @@
-abeja
-águila
-araña
-avispa
 ballena
 bisonte
 búfalo
@@ -14,3 +10,9 @@ canguro
 caracol
 cebra
 perro
+aracol
+cebra
+perro
+a
+go
+Uva

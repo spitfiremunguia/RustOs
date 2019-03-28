@@ -1,9 +1,9 @@
 use std::thread;
 use std::sync::{Mutex, Arc};
 use std::fs::File;
-use std::fs;
 use std::io::prelude::*;
-
+use std::fs::OpenOptions;
+use std::io::Write;
  
 struct Philosopher {
     name: String,
@@ -24,17 +24,35 @@ impl Philosopher {
         let _left = table.forks[self.left].lock().unwrap();
         let _right = table.forks[self.right].lock().unwrap();
     
-        println!("{} is eating.", self.name);
+        println!("{} is eating", self.name);
         thread::sleep_ms(3000);
-        println!("{}",&_left);
-        println!("{} is done eating.", self.name);
+        //do something with the files,like write on them or something
+        let mut leftVectorContent=_left.content.lines().collect::<Vec<&str>>();
+        let mut rightVectorContent=_right.content.lines().collect::<Vec<&str>>();
+        //delete left fork register file
+        println!("{}",leftVectorContent[0]);
+        leftVectorContent.remove(0);
+        let LeftStrings:Vec<String>= leftVectorContent.iter().map(|x| x.to_string()).collect();
+        let mut leftFile=OpenOptions::new().write(true).open(&_left.path).unwrap();
+        writeln!(leftFile, "{}", LeftStrings.join("\n")).unwrap();
+        //delete right for register file
+        println!("{}",rightVectorContent[0]);
+        rightVectorContent.remove(0);
+        let RightStrings:Vec<String>= rightVectorContent.iter().map(|x| x.to_string()).collect();
+        let mut rightFile=OpenOptions::new().write(true).open(&_right.path).unwrap();
+        writeln!(rightFile, "{}", RightStrings.join("\n")).unwrap();
+        println!("{} is done eating", self.name);
  
     }
 }
  
- 
+struct MyFile
+{
+    path:String,
+    content:String,
+}
 struct Table {
-    forks: Vec<Mutex<String>>,
+    forks: Vec<Mutex<MyFile>>,
 }
 fn main()->std::io::Result<()> {
 
@@ -55,15 +73,31 @@ fn main()->std::io::Result<()> {
     animals.read_to_string(&mut animalsContent);
     languages.read_to_string(&mut languagesContent);
     orientations.read_to_string(&mut orientationsContent);
+    //create the objects
     
     
 
     let mut table = Arc::new(Table { forks: vec![
-        Mutex::new((carsContent)),
-        Mutex::new((fruitsContent)),
-        Mutex::new((animalsContent)),
-        Mutex::new((languagesContent)),
-        Mutex::new((orientationsContent))
+        Mutex::new(MyFile{
+            path:"cars.txt".to_string(),
+            content:carsContent
+        }),
+        Mutex::new(MyFile{
+            path:"fruits.txt".to_string(),
+            content:fruitsContent
+        }),
+        Mutex::new(MyFile{
+            path:"animals.txt".to_string(),
+            content:animalsContent
+        }),
+        Mutex::new(MyFile{
+            path:"languages.txt".to_string(),
+            content:languagesContent
+        }),
+        Mutex::new(MyFile{
+            path:"orientations.txt".to_string(),
+            content:orientationsContent
+        })
     ]});
  
     let mut philosophers = vec![
