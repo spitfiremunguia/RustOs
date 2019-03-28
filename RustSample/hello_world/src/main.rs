@@ -4,6 +4,7 @@ use std::fs::File;
 use std::fs;
 use std::io::prelude::*;
 
+
  
 struct Philosopher {
     name: String,
@@ -19,16 +20,19 @@ impl Philosopher {
             right: right,
         }
     }
- 
-    fn eat(&self, table: &Table) {
+    
+    fn eat(&self, table: &Table) -> std::io::Result<()>{
         let _left = table.forks[self.left].lock().unwrap();
         let _right = table.forks[self.right].lock().unwrap();
     
         println!("{} is eating.", self.name);
-        thread::sleep_ms(3000);
+        //thread::sleep_ms(3000);
+
         println!("{}",&_left);
         println!("{} is done eating.", self.name);
- 
+        let mut file = File::create("foo.txt")?;
+        file.write_all(b"Hello, world!")?;
+        Ok(())
     }
 }
  
@@ -82,7 +86,6 @@ fn main()->std::io::Result<()> {
         })
     }).collect();
    
-    
     for h in handles {
         h.join().unwrap();
     }
