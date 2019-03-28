@@ -23,26 +23,28 @@ impl Philosopher {
     }
  
     fn eat(&self, table: &Table) {
-        let _left = table.forks[self.left].lock().unwrap();
-        let _right = table.forks[self.right].lock().unwrap();
+        let mut _left = table.forks[self.left].lock().unwrap();
+        let mut _right = table.forks[self.right].lock().unwrap();
     
         println!("{} is eating", self.name.cyan());
-        thread::sleep_ms(3000);
         //do something with the files,like write on them or something
         let mut leftVectorContent=_left.content.lines().collect::<Vec<&str>>();
         let mut rightVectorContent=_right.content.lines().collect::<Vec<&str>>();
         //delete left fork register file
-        println!("{}",leftVectorContent[0].green());
+        println!("{} is reading:{}",self.name.green(),leftVectorContent[0].green());
         leftVectorContent.remove(0);
-        let LeftStrings:Vec<String>= leftVectorContent.iter().map(|x| x.to_string()).collect();
+        let mut LeftStrings:Vec<String>= leftVectorContent.iter().map(|x| x.to_string()).collect();
         let mut leftFile=OpenOptions::new().write(true).open(&_left.path).unwrap();
         writeln!(leftFile, "{}", LeftStrings.join("\n")).unwrap();
+        _left.content=LeftStrings.join("\n");
         //delete right for register file
-        println!("{}",rightVectorContent[0].yellow());
+        println!("{} is reading:{}",self.name.yellow(),rightVectorContent[0].yellow());
         rightVectorContent.remove(0);
-        let RightStrings:Vec<String>= rightVectorContent.iter().map(|x| x.to_string()).collect();
+        let mut RightStrings:Vec<String>= rightVectorContent.iter().map(|x| x.to_string()).collect();
         let mut rightFile=OpenOptions::new().write(true).open(&_right.path).unwrap();
         writeln!(rightFile, "{}", RightStrings.join("\n")).unwrap();
+        _right.content=RightStrings.join("\n");
+        thread::sleep_ms(3000);
 
         
         println!("{} is done eating", self.name.magenta());
@@ -83,7 +85,7 @@ fn main()->std::io::Result<()> {
     
 
     let mut table = Arc::new(Table { forks: vec![
-        Mutex::new(MyFile{
+        Mutex::new(MyFile{  
             path:"cars.txt".to_string(),
             content:carsContent
         }),
