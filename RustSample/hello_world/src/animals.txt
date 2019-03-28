@@ -1,5 +1,3 @@
-Guinea pig
-Horse
 Pig
 Rabbit
 Fancy rat varieties
@@ -262,6 +260,11 @@ st
 ust
 ust
 
+ust
+st
+ust
+t
+ust
 ust
 st
 ust
