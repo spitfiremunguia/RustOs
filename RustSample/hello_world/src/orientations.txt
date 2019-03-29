@@ -1,26 +1,8 @@
-k
-l
-m
-n
-o
-p
-q
-r
-s
-t
-u
-v
-w
-x
-y
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
+Tokio
+Nueva York
+Los Ángeles
+Seúl
+Londres
+París
+Osaka
+Shanghái
