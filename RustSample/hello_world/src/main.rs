@@ -107,17 +107,18 @@ fn main()->std::io::Result<()> {
     ]});
  
     let mut philosophers = vec![
+        /*
         Philosopher::new("David",0,1),  
         Philosopher::new("Oso",1,1),    
         Philosopher::new("Kathy",2,1),  
         Philosopher::new("Chang",3,1),  
         Philosopher::new("Jeff",0,4)
-        /*
+        */
         Philosopher::new("David", 0, 1),  
         Philosopher::new("Oso", 1, 2),    
         Philosopher::new("Kathy", 2, 3),  
         Philosopher::new("Chang", 3, 4),  
-        Philosopher::new("Jeff",4, 0)  */
+        Philosopher::new("Jeff",4, 0)  
     ];
  
     let mut handles: Vec<_> = philosophers.into_iter().map(|p| {
