@@ -1,10 +1,10 @@
 abeja
-águila
-araña
+aguila
+arana
 avispa
 ballena
 bisonte
-búfalo
+bufalo
 burro
 caballo
 camello

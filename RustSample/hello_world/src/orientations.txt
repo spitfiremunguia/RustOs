@@ -1,8 +1,8 @@
 Tokio
 Nueva York
 Los Ángeles
-Seúl
+Seul
 Londres
-París
+Paris
 Osaka
-Shanghái
+Shanghai

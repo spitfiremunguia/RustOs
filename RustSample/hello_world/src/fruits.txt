@@ -1,6 +1,6 @@
 Manzana
-Piña
-Arándano
+Pina
+Arandano
 Banana
 Cereza
 Ciruela
@@ -10,7 +10,7 @@ Frambuesa
 Fresa
 Higo
 Kiwi
-Limón
+Limon
 Mandarina
 Mango
 Uva
